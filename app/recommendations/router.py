@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException
-from fastapi_pagination import paginate
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi_pagination import Page, paginate
 
 from app.recommendations.dao import get_user, get_users, create_user
 from app.recommendations.recsys import recommend_users
@@ -7,11 +7,11 @@ from app.recommendations.schemas import UserSchema
 from app.models import Users
 
 router = APIRouter(
-    prefix="",
+    prefix="/recommendations",
     tags=["recommendations"]
 )
 
-@router.get("/{user_id}")
+@router.get("/{user_id}", response_model=Page[UserSchema])
 async def get_recommendations(user_id: int):
     current_user = await get_user(user_id)
     if not current_user:
@@ -23,26 +23,33 @@ async def get_recommendations(user_id: int):
     recommended_users = [user for user in all_users if user.id in recommended_user_ids]
     return paginate(recommended_users)
 
-@router.get("/user/{user_id}")
+@router.get("/users/{user_id}", response_model=UserSchema)
 async def get_single_user(user_id: int):
     current_user = await get_user(user_id=user_id)
     if not current_user:
         raise HTTPException(status_code=404, detail="User not found")
     return current_user
 
-@router.get("/users")
+@router.get("/users", response_model=Page[UserSchema])
 async def get_all_users():
     all_users = await get_users()
-    return all_users
+    return paginate(all_users)
 
-@router.post("/user")
+@router.post("/user", response_model=UserSchema)
 async def create_new_user(user: UserSchema):
     user_model = Users(
         id=user.id,
         name=user.name,
         age=user.age,
         gender=user.gender,
-        location=user.location
+        description=user.description,
+        latitude=user.latitude,
+        longitude=user.longitude,
+        city=user.city,
+        quad_key=user.quad_key,
+        photo_ids=user.photo_ids,
     )
-    await create_user(user=user_model)
-    return {"message": "successful creation"}
+    created_user = await create_user(user=user_model)
+    if created_user is None:
+        raise HTTPException(status_code=500, detail="Failed to create user")
+    return created_user

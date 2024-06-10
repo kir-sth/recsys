@@ -6,3 +6,4 @@ pandas
 scikit-learn
 fastapi-pagination
 pydantic-settings
+greenlet

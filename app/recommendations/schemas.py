@@ -15,4 +15,4 @@ class UserSchema(BaseModel):
     photo_ids: List[str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True

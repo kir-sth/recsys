@@ -10,5 +10,4 @@ async_session_maker = sessionmaker(bind=engine, class_=AsyncSession, expire_on_c
 
 
 class Base(DeclarativeBase):
-    created_datetime_utc: Mapped[datetime] # auto computed
-    updated_datetime_utc: Mapped[datetime] # auto computed
+    pass

@@ -1,11 +1,15 @@
-FROM python:3.9-slim
+FROM python:3.12
 
-WORKDIR /app
+WORKDIR /WORKDIR
 
-COPY ./requirements.txt /app/requirements.txt
+COPY ./requirements.txt /WORKDIR/requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY . /WORKDIR
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY ./entrypoint.sh /WORKDIR/entrypoint.sh
+
+RUN chmod +x /WORKDIR/entrypoint.sh
+
+CMD ["/WORKDIR/entrypoint.sh"]

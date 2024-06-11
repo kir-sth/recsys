@@ -30,7 +30,7 @@ async def get_single_user(user_id: int):
         raise HTTPException(status_code=404, detail="User not found")
     return current_user
 
-@router.get("/users", response_model=Page[UserSchema])
+@router.get("/users")
 async def get_all_users():
     all_users = await get_users()
     return paginate(all_users)
@@ -39,6 +39,7 @@ async def get_all_users():
 async def create_new_user(user: UserSchema):
     user_model = Users(
         id=user.id,
+        tg_user_id=user.tg_user_id,
         name=user.name,
         age=user.age,
         gender=user.gender,

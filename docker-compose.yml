@@ -24,6 +24,8 @@ services:
       - postgres
     networks:
       - app-network
+    volumes:
+      - .:/app
 
 volumes:
   postgres_data:

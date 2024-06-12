@@ -13,7 +13,7 @@ add_pagination(app)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        app=app,
+        app="app.main:app",
         host=settings.FASTAPI_HOST,
         port=settings.FASTAPI_PORT,
     )

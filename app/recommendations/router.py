@@ -7,11 +7,11 @@ from app.recommendations.schemas import UserSchema
 from app.models import Users
 
 router = APIRouter(
-    prefix="/recommendations",
+    prefix="",
     tags=["recommendations"]
 )
 
-@router.get("/{user_id}", response_model=Page[UserSchema])
+@router.get("recommendations/{user_id}", response_model=Page[UserSchema])
 async def get_recommendations(user_id: int):
     current_user = await get_user(user_id)
     if not current_user:
@@ -33,7 +33,7 @@ async def get_single_user(user_id: int):
 @router.get("/users")
 async def get_all_users():
     all_users = await get_users()
-    return paginate(all_users)
+    return all_users
 
 @router.post("/user", response_model=UserSchema)
 async def create_new_user(user: UserSchema):

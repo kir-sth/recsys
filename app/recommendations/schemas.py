@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
+
 class UserSchema(BaseModel):
     id: int
     tg_user_id: int

@@ -3,6 +3,7 @@ from sklearn.neighbors import NearestNeighbors
 
 from app.models import Users
 
+
 async def recommend_users(current_user: Users, all_users: list[Users], n_neighbors: int = 5):
     user_df = pd.DataFrame([{
         'id': user.id,

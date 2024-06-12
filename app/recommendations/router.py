@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi_pagination import Page, paginate
 
+from app.models import Users
 from app.recommendations.dao import get_user, get_users, create_user
 from app.recommendations.recsys import recommend_users
 from app.recommendations.schemas import UserSchema
-from app.models import Users
 
 router = APIRouter(
     prefix="",

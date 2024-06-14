@@ -33,10 +33,10 @@ This project is a FastAPI-based recommendation system. It uses a PostgreSQL data
 │ ├── main.py
 │ ├── models.py
 │ └── recommendations
-│ ├── dao.py
-│ ├── recsys.py
-│ ├── router.py
-│ └── schemas.py
+│   ├── dao.py
+│   ├── recsys.py
+│   ├── router.py
+│   └── schemas.py
 ├── docker-compose.yml
 ├── entrypoint.sh
 ├── .env

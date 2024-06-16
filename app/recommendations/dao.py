@@ -19,6 +19,7 @@ async def get_user(user_id: int):
         logger.error(f"Database error: {e}")
         return None
 
+
 async def get_users(skip: int = 0, limit: int = 10):
     try:
         async with async_session_maker() as session:
@@ -28,6 +29,7 @@ async def get_users(skip: int = 0, limit: int = 10):
     except SQLAlchemyError as e:
         logger.error(f"Database error: {e}")
         return []
+
 
 async def create_user(user: Users):
     try:

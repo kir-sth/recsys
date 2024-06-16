@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException
 from fastapi_pagination import Page, paginate
 
 from app.models import Users
@@ -6,10 +6,12 @@ from app.recommendations.dao import get_user, get_users, create_user
 from app.recommendations.recsys import recommend_users
 from app.recommendations.schemas import UserSchema
 
+
 router = APIRouter(
     prefix="",
     tags=["recommendations"]
 )
+
 
 @router.get("recommendations/{user_id}", response_model=Page[UserSchema])
 async def get_recommendations(user_id: int):
@@ -19,9 +21,10 @@ async def get_recommendations(user_id: int):
 
     all_users = await get_users()
     recommended_user_ids = await recommend_users(current_user, all_users)
-    
+
     recommended_users = [user for user in all_users if user.id in recommended_user_ids]
     return paginate(recommended_users)
+
 
 @router.get("/users/{user_id}", response_model=UserSchema)
 async def get_single_user(user_id: int):
@@ -30,10 +33,12 @@ async def get_single_user(user_id: int):
         raise HTTPException(status_code=404, detail="User not found")
     return current_user
 
+
 @router.get("/users")
 async def get_all_users():
     all_users = await get_users()
     return all_users
+
 
 @router.post("/user", response_model=UserSchema)
 async def create_new_user(user: UserSchema):

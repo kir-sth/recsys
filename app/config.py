@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
- 
+
 class Settings(BaseSettings):
     FASTAPI_HOST: str
     FASTAPI_PORT: int

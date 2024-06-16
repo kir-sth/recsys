@@ -25,6 +25,7 @@ class Forms(Base):
     max_age: Mapped[int] = mapped_column(Integer)
     location_radius: Mapped[float] = mapped_column(Float)
 
+
 class Users(Base):
     __tablename__ = 'users'
 
@@ -40,6 +41,7 @@ class Users(Base):
     quad_key: Mapped[int] = mapped_column(Integer)
     photo_ids: Mapped[List[str]] = mapped_column(JSON)
 
+
 class Likes(Base):
     __tablename__ = 'likes'
 
@@ -48,9 +50,10 @@ class Likes(Base):
     user_id_to: Mapped[int] = mapped_column(ForeignKey('users.id'))
     is_match: Mapped[bool] = mapped_column(Boolean)
 
+
 class Preferences(Base):
     __tablename__ = 'preferences'
-    
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     preferred_gender: Mapped[str] = mapped_column(String(10))

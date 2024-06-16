@@ -16,7 +16,7 @@ async def recommend_users(current_user: Users, all_users: list[Users], n_neighbo
     user_df['location'] = user_df['location'].apply(lambda loc: loc[0] * 1e6 + loc[1])  # Example transformation
 
     features = ['age', 'location']
-    
+
     model = NearestNeighbors(n_neighbors=n_neighbors)
     model.fit(user_df[features])
 
